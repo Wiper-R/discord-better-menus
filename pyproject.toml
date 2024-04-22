@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "discord-ext-better-menus"
+version = "0.0.1"
+description = ""
+authors = ["Shivang Rathore <rshivang12345@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "discord/ext/better_menus"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+discord = "^2.3.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
