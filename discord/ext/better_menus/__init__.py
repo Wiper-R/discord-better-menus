@@ -53,7 +53,7 @@ class PageSource(ABC, Generic[T]):
         """Prepares page before sending."""
         page = await self.get_page(index)
 
-        if page and len(page) == 0:
+        if not page or len(page) == 0:
             raise NothingOnThatPage
 
         page = await self.format_page(page)
@@ -117,14 +117,38 @@ class Paginator(discord.ui.View):
         if entries <= self.source.per_page:
             return
         
+        _visible = self.source.current_page * self.source.per_page
+        
         if self.allow_first_and_last:
             self.add_item(self.go_to_first_page)
-            
+
+            if _visible <= self.source.per_page:
+                self.go_to_first_page.disabled = True
+            else:
+                self.go_to_first_page.disabled = False
+
+
+
         self.add_item(self.go_to_previous_page)
         self.add_item(self.go_to_next_page)
 
+        if self.source.per_page < _visible:    
+            self.go_to_previous_page.disabled = False
+        else:
+            self.go_to_previous_page.disabled = True
+
+        if _visible < entries:
+            self.go_to_next_page.disabled = False
+        else:
+            self.go_to_next_page.disabled = True
+
         if self.allow_first_and_last:
             self.add_item(self.go_to_last_page)
+
+            if _visible >= entries:
+                self.go_to_last_page.disabled = True
+            else:
+                self.go_to_last_page.disabled = False
 
         self.add_item(self.quit_pagination)
 
