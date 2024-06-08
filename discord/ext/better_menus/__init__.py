@@ -73,12 +73,12 @@ class AsyncIteratorPageSource(PageSource[T]):
         self.iterator = iterator
         self._cache: Dict[int, List[T]] = {}
 
-    async def get_entries(self, index: int) -> List[T]:
-        if index < 0:
+    async def get_page(self, page: int) -> List[T]:
+        if page < 0:
             return []
 
         try:
-            return self._cache[index]
+            return self._cache[page]
         except KeyError:
             pass
 
@@ -91,7 +91,7 @@ class AsyncIteratorPageSource(PageSource[T]):
 
             counter += 1
 
-        self._cache[index] = data
+        self._cache[page] = data
         return data
 
 
