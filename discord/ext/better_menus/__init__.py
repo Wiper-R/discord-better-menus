@@ -113,11 +113,12 @@ class Paginator(discord.ui.View):
         self.allow_first_and_last = allow_first_and_last
         self.message = None
 
+
     def fill_items(self, entries: int) -> None:
         if entries <= self.source.per_page:
             return
         
-        _visible = self.source.current_page * self.source.per_page
+        _visible = (self.source.current_page + 1) * self.source.per_page
         
         if self.allow_first_and_last:
             self.add_item(self.go_to_first_page)
