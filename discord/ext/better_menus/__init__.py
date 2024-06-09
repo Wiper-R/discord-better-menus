@@ -189,9 +189,8 @@ class Paginator(discord.ui.View):
 
 
         if not self.message:
-            self.message = await self.ctx.send(**kwargs, view=self) 
-        
-
+            self.message = await self.ctx.send(**kwargs, view=self)
+            return
         
         if interaction:
             await interaction.response.edit_message(**kwargs, view=self)   
