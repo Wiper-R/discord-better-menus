@@ -5,7 +5,7 @@ from enum import IntEnum
 import math
 import discord
 from discord.ext import commands
-from typing import Any, AsyncGenerator, Dict, Generic, Optional, Self, TypeVar, List
+from typing import Any, AsyncIterator, Dict, Generic, Optional, Self, TypeVar, List
 
 from discord.ui.item import Item
 
@@ -67,7 +67,7 @@ class GetPageSource(PageSource[T]):
 
 class AsyncIteratorPageSource(PageSource[T]):
     def __init__(
-        self, iterator: AsyncGenerator[T, None], per_page: int
+        self, iterator: AsyncIterator[T], per_page: int
     ) -> None:
         super().__init__(per_page)
         self.iterator = iterator
@@ -240,3 +240,4 @@ class Paginator(discord.ui.View):
 
         await interaction.response.send_message("This pagination doesn't belong to you.", ephemeral=True)
         return False
+    
