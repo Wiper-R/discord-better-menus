@@ -233,6 +233,21 @@ class Paginator(discord.ui.View):
         if page == PageGoTo.FIRST_PAGE:
             return 0
         
+    async def interaction_check(self, interaction: discord.Interaction[discord.Client]) -> bool:
+        """Check if the interaction is valid.
+
+        Args:
+            interaction: The Discord interaction.
+
+        Returns:
+            True if the interaction is valid, False otherwise.
+        """
+        if interaction.user.id == self.ctx.author.id:
+            return True
+
+        await interaction.response.send_message("This pagination doesn't belong to you.", ephemeral=True)
+        return False
+        
     async def send_page(self, interaction: Optional[discord.Interaction] = None, page: PageGoTo = PageGoTo.CURRENT_PAGE) -> None:
         """Send a page of items.
 
@@ -262,6 +277,16 @@ class Paginator(discord.ui.View):
         
         if interaction:
             await interaction.response.edit_message(**kwargs, view=self)
+
+    async def start(self, ctx: Context) -> None:
+        """Start the pagination.
+
+        Args:
+            ctx: The context in which the paginator is started.
+        """
+        self.ctx = ctx
+        await self.send_page()
+
 
     async def quit(self) -> None:
         """Quit the pagination and disable all buttons."""
