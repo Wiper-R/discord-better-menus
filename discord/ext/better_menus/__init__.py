@@ -72,8 +72,8 @@ class PageSource(ABC, Generic[T]):
         if not page or len(page) == 0:
             raise NothingOnThatPage
 
-        page = await self.format_page(page)
         self.current_page = index
+        page = await self.format_page(page)
         return page
 
 class ListPageSource(PageSource[T]):
