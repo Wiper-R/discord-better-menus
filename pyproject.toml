@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "discord-ext-better-menus"
+name = "better_menus"
 version = "0.0.1"
 description = ""
 authors = ["Shivang Rathore <rshivang12345@gmail.com>"]
 readme = "README.md"
-packages = [{ include = "discord/ext/better_menus"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"

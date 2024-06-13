@@ -103,16 +103,6 @@ class ListPageSource(PageSource[T]):
         end = start + self.per_page
         return self.entries[start:end]
 
-    async def format_page(self, page: List[T]) -> Any:
-        """Format the retrieved page data.
-
-        Args:
-            page: The list of items on the page.
-
-        Returns:
-            The formatted page.
-        """
-        return "\n".join(str(entry) for entry in page)
     
     async def get_num_entries(self) -> int:
         """Get the total number of entries in the list.
