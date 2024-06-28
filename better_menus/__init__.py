@@ -250,7 +250,11 @@ class Paginator(discord.ui.View):
         page_index = await self.get_page_index(page)
         formatted_page = await self.source.prepare_page(page_index)
 
-        self.clear_items()
+        self.remove_item(self.go_to_next_page)
+        self.remove_item(self.go_to_previous_page)
+        self.remove_item(self.quit_pagination)
+        self.remove_item(self.go_to_first_page)
+        self.remove_item(self.go_to_last_page)
         total_entries = await self.source.get_num_entries()
         self.fill_items(total_entries)
 
